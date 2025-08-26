@@ -1,10 +1,8 @@
-# Efficient Instruction Fine-Tuning of LLMs with LoRA 🚀
+# **Efficient Instruction Fine-Tuning of LLMs with LoRA** 🚀
 
 This repository provides a comprehensive, hands-on guide to instruction fine-tuning a Large Language Model (LLM) using a parameter-efficient technique called **Low-Rank Adaptation (LoRA)**. We transform the general-purpose `facebook/opt-350m` model into a specialized instruction-following agent capable of generating precise and relevant code and text based on user prompts.
 
 This project demonstrates the entire workflow from data preparation and base model evaluation to efficient fine-tuning and comparative analysis, using the powerful Hugging Face ecosystem (`transformers`, `peft`, and `trl`).
-
-[Image of a large language model brain with smaller, efficient LoRA adapters being plugged in]
 
 ---
 
@@ -19,9 +17,9 @@ This project demonstrates the entire workflow from data preparation and base mod
 
 ---
 
-##  workflow Project Workflow
+##  Project Workflow
 
-The project is detailed in the `Instruction fine-tuning.ipynb` notebook and follows these key steps:
+The project is detailed in the `LoRA_Finetuning_Walkthrough.ipynb` notebook and follows these key steps:
 
 ### 1. Setup & Data Preparation
 
@@ -83,13 +81,16 @@ The qualitative results show a dramatic improvement in the model's ability to ge
 ---
 
 ## 📂 Repository Structure
-├── 📜 Instruction fine-tuning.ipynb   # Main Jupyter Notebook with the full workflow.
-├── 🐍 config.py                       # Configuration for LoRA and SFTTrainer.
-├── 🐍 utils.py                        # Helper functions for formatting prompts and evaluation.
-├── 📊 train_loss.png                   # Plot of the training loss curve.
-├── 📄 instruction-tuning-log-history-lora.json # Training logs.
-├── 📦 *.pkl                            # Saved model outputs for analysis.
-└── 📄 README.md                       # You are here!
+```
+llm-instruction-tuning-lora
+├── LoRA_Finetuning_Walkthrough.ipynb   # Main Jupyter Notebook with the full workflow.
+├── config.py                       # Configuration for LoRA and SFTTrainer.
+├── utils.py                        # Helper functions for formatting prompts and evaluation.
+├── train_loss.png                   # Plot of the training loss curve.
+├── instruction-tuning-log-history-lora.json # Training logs.
+├── *.pkl                            # Saved model outputs for analysis.
+└── README.md                       # You are here!
+```
 
 ---
 
@@ -97,29 +98,21 @@ The qualitative results show a dramatic improvement in the model's ability to ge
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/](https://github.com/)<your-username>/instruct_tuning_project.git
-    cd instruct_tuning_project
+    git clone https://github.com/nabeelshan78/llm-instruction-tuning-lora.git
+    cd llm-instruction-tuning-lora
     ```
 
-2.  **Set up a virtual environment and install dependencies:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    pip install -r requirements.txt
-    ```
-    *(Note: You may need to create a `requirements.txt` file from the imports in the notebook).*
-
-3.  **Launch Jupyter Lab:**
+2.  **Launch Jupyter Lab:**
     ```bash
     jupyter lab
     ```
 
 4.  **Run the Notebook:**
-    Open `Instruction fine-tuning.ipynb` and execute the cells sequentially.
+    Open `LoRA_Finetuning_Walkthrough` and execute the cells sequentially.
 
 ---
 
-## 💻 Technologies Used
+## Technologies Used
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg?style=for-the-badge&logo=pytorch)
@@ -128,9 +121,3 @@ The qualitative results show a dramatic improvement in the model's ability to ge
 ![Jupyter](https://img.shields.io/badge/Jupyter-Lab-f37626.svg?style=for-the-badge&logo=jupyter)
 
 ---
-
-## 🙏 Acknowledgements
-
--   **Model:** [Meta](https://ai.meta.com/) for the `facebook/opt-350m` model.
--   **Dataset:** The [CodeAlpaca](https://github.com/sahil280114/codealpaca) project for providing the high-quality instruction dataset.
--   **Libraries:** The [Hugging Face](https://huggingface.co/) team for their incredible work on `transformers`, `peft`, and `trl`.
