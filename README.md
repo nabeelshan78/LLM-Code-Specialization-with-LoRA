@@ -14,7 +14,7 @@ This project demonstrates the entire workflow from data preparation and base mod
   - [3. LoRA Configuration & Fine-Tuning](#3-lora-configuration--fine-tuning)
   - [4. Results & Analysis](#4-results--analysis)
 - [Repository Structure](#-repository-structure)
-- [How to Run](#-how-to-run)
+- [How to Run](#how-to-run)
 - [Technologies Used](#technologies-used)
 
 ---
@@ -108,7 +108,7 @@ llm-instruction-tuning-lora
 
 ---
 
-## 🛠️ How to Run
+## How to Run
 
 1.  **Clone the repository:**
     ```bash
