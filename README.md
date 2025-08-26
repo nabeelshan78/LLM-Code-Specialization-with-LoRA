@@ -6,6 +6,20 @@ This project demonstrates the entire workflow from data preparation and base mod
 
 ---
 
+## Table of Contents
+- [Key Concepts & Techniques Covered](#-key-concepts--techniques-covered)
+- [Project Workflow](#project-workflow)
+  - [1. Setup & Data Preparation](#1-setup--data-preparation)
+  - [2. Base Model Evaluation](#2-base-model-evaluation-before-tuning)
+  - [3. LoRA Configuration & Fine-Tuning](#3-lora-configuration--fine-tuning)
+  - [4. Results & Analysis](#4-results--analysis)
+- [Repository Structure](#-repository-structure)
+- [How to Run](#-how-to-run)
+- [Technologies Used](#technologies-used)
+
+---
+
+
 ## 🎯 Key Concepts & Techniques Covered
 
 -   **Instruction Fine-Tuning:** Training a pre-trained LLM to better understand and follow human commands or instructions.
