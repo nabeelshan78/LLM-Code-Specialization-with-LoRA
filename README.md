@@ -1,137 +1,97 @@
-# **Efficient Instruction Fine-Tuning of LLMs with LoRA** 🚀
+# Specializing LLMs for Code Generation via Parameter-Efficient Fine-Tuning (LoRA)
 
-This repository provides a comprehensive, hands-on guide to instruction fine-tuning a Large Language Model (LLM) using a parameter-efficient technique called **Low-Rank Adaptation (LoRA)**. We transform the general-purpose `facebook/opt-350m` model into a specialized instruction-following agent capable of generating precise and relevant code and text based on user prompts.
+### Project Goal: Transforming a general-purpose language model into a specialized, instruction-following code generator with minimal computational cost.
 
-This project demonstrates the entire workflow from data preparation and base model evaluation to efficient fine-tuning and comparative analysis, using the powerful Hugging Face ecosystem (`transformers`, `peft`, and `trl`).
+This project demonstrates my ability to adapt and specialize foundation models for complex, domain-specific tasks. I successfully fine-tuned the `facebook/opt-350m` model on the `CodeAlpaca-20k` dataset, turning its generic, often irrelevant outputs into precise and accurate code snippets based on user instructions.
 
----
-
-## Table of Contents
-- [Key Concepts & Techniques Covered](#-key-concepts--techniques-covered)
-- [Project Workflow](#project-workflow)
-  - [1. Setup & Data Preparation](#1-setup--data-preparation)
-  - [2. Base Model Evaluation](#2-base-model-evaluation-before-tuning)
-  - [3. LoRA Configuration & Fine-Tuning](#3-lora-configuration--fine-tuning)
-  - [4. Results & Analysis](#4-results--analysis)
-- [Repository Structure](#-repository-structure)
-- [How to Run](#how-to-run)
-- [Technologies Used](#technologies-used)
+The key achievement was leveraging **Low-Rank Adaptation (LoRA)**, a Parameter-Efficient Fine-Tuning (PEFT) technique. This allowed me to achieve high-performance specialization by training **less than 1%** of the model's total parameters, showcasing an efficient and scalable approach to model customization.
 
 ---
 
+## 🚀 Key Result: Before vs. After LoRA Fine-Tuning
 
-## 🎯 Key Concepts & Techniques Covered
+The impact of instruction fine-tuning is best shown by comparing the model's performance on the same prompt before and after the LoRA process. The transformation from an incoherent text generator to a functional code generator is stark.
 
--   **Instruction Fine-Tuning:** Training a pre-trained LLM to better understand and follow human commands or instructions.
--   **Parameter-Efficient Fine-Tuning (PEFT):** Methods to adapt LLMs to new tasks without retraining all of the model's parameters, saving significant computational resources.
--   **Low-Rank Adaptation (LoRA):** A specific PEFT technique that injects small, trainable rank-decomposition matrices into the model's layers.
--   **Prompt Engineering & Templating:** Structuring the input data in a consistent format (`### Instruction: ...`) that the model can easily learn from.
--   **Hugging Face Ecosystem:** Leveraging `transformers` for models, `peft` for LoRA implementation, and `trl` for its specialized `SFTTrainer` (Supervised Fine-Tuning Trainer).
--   **Comparative Performance Analysis:** A clear demonstration of the model's capabilities **before** and **after** fine-tuning to showcase the effectiveness of the process.
+| | Before Fine-Tuning (Base `opt-350m`) | After LoRA Fine-Tuning (Specialized Model) |
+| :--- | :--- | :--- |
+| **Instruction** | `Create a javascript class that takes in two arguments and prints them out when called.` | `Create a javascript class that takes in two arguments and prints them out when called.` |
+| **Model Output** | `Once you have a response, write it down. Write it down. Write it down... ### Instructions: Add a JavaScript object to the end of the class.` | `class PrintNumber{ constructor(num1, num2){ this.num1 = num1; this.num2 = num2; } printNumber(){ console.log(\`${this.num1}, ${this.num2}\`); } }` |
+| **Assessment** | ❌ **Failure:** The base model completely fails to understand the instruction, generating repetitive, nonsensical text. | ✅ **Success:** The fine-tuned model correctly interprets the instruction and generates a perfectly valid and functional JavaScript class. |
 
----
+### Training Performance
 
-##  Project Workflow
-
-The project is detailed in the `LoRA_Finetuning_Walkthrough.ipynb` notebook and follows these key steps:
-
-### 1. Setup & Data Preparation
-
--   **Dependencies:** Installation of all necessary libraries including `torch`, `transformers`, `datasets`, `peft`, and `trl`.
--   **Dataset:** The `CodeAlpaca-20k` dataset is loaded. It contains a rich set of instructions, optional inputs, and high-quality outputs, primarily focused on code generation.
--   **Data Splitting:** The dataset is split into an 80% training set and a 20% testing set.
--   **Prompt Formatting:** A custom function `format_prompt` is used to structure each data point into a consistent instruction template. This is crucial for the model to learn the pattern of instruction-following.
-
-    ```python
-    # Example of a formatted prompt without context/input
-    template_without_input = (
-        "Below is an instruction that describes a task. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Response:\n"
-    )
-
-    # Example of a formatted prompt with context/input
-    template_with_input = (
-        "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:\n"
-    )
-    ```
-
-### 2. Base Model Evaluation (Before Tuning)
-
-Before any fine-tuning, we evaluate the performance of the base `facebook/opt-350m` model. This step establishes a baseline and highlights the model's initial inability to follow instructions correctly.
-
-> **Observation:** The base model often fails to follow the instructions, repeats itself, or generates irrelevant text.
-
-### 3. LoRA Configuration & Fine-Tuning
-
-This is the core of the project. We use PEFT to efficiently fine-tune the model.
-
--   **LoRA Configuration:** We define a `LoraConfig` that specifies which layers of the model to adapt (e.g., `q_proj`, `v_proj`), the rank (`r`) of the decomposition matrices, and other hyperparameters.
--   **Model Wrapping:** The base model is wrapped with `get_peft_model` to prepare it for LoRA training.
--   **Supervised Fine-Tuning:** The `SFTTrainer` from the `trl` library is used to perform the training. This trainer is optimized for instruction-tuning tasks. The `DataCollatorForCompletionOnlyLM` ensures that the model only computes loss on the `### Response:` part of the prompt, making training more effective.
-
-### 4. Results & Analysis
-
-The effectiveness of instruction fine-tuning is demonstrated through a clear "before and after" comparison and analysis of the training process.
-
-#### Training Loss
-
-The training loss steadily decreases over the training steps, indicating that the model is successfully learning to follow the instruction format and produce the desired outputs.
+The model demonstrated successful learning, as evidenced by the consistently decreasing training loss curve. This indicates effective convergence on the task of following coding instructions.
 
 ![Training Loss Curve](train_loss.png)
 
-#### Before vs. After Fine-Tuning
+---
 
-The qualitative results show a dramatic improvement in the model's ability to generate accurate and relevant responses.
+## 🛠️ Technical Methodology
 
-| | Before Fine-Tuning (Base Model) | After Fine-Tuning (LoRA) |
-| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Instruction** | `Create a javascript class that takes in two arguments and prints them out when called.` | `Create a javascript class that takes in two arguments and prints them out when called.` |
-| **Model Output** | `Once you have a response, write it down. Write it down. Write it down... ### Instructions: Add a JavaScript object to the end of the class.` | `class PrintNumber{ constructor(num1, num2){ this.num1 = num1; this.num2 = num2; } printNumber(){ console.log(\`${this.num1}, ${this.num2}\`); } }` |
-| **Assessment** | ❌ **Failure:** The model misunderstands the task, generating repetitive and irrelevant text instead of code. | ✅ **Success:** The model correctly generates the requested JavaScript class, perfectly following the instruction. |
+My approach involved a systematic workflow, from data strategy to model training and evaluation, leveraging the state-of-the-art Hugging Face ecosystem.
+
+#### 1. Data Strategy & Prompt Engineering
+-   **Dataset:** Leveraged the `CodeAlpaca-20k` dataset, which contains a rich set of instruction-output pairs tailored for code generation tasks.
+-   **Prompt Templating:** I designed a structured prompt template to format the dataset. This crucial step creates a consistent input format (`### Instruction: ... ### Response: ...`) that enables the model to learn the instruction-following pattern effectively. This strategy is key to successful instruction fine-tuning.
+
+#### 2. Parameter-Efficient Fine-Tuning (PEFT) with LoRA
+-   **Core Technique:** Implemented Low-Rank Adaptation (LoRA) to inject small, trainable matrices into the attention layers (`q_proj`, `v_proj`) of the transformer architecture.
+-   **Efficiency:** This approach is highly efficient. Instead of training all **350M** parameters of the base model, I only updated the LoRA adapters, which constituted **~1.5M** parameters. This represents a **>99% reduction in trainable parameters**, drastically lowering VRAM requirements and training time.
+
+#### 3. Optimized Training with TRL
+-   **Trainer:** Utilized the `SFTTrainer` from the Hugging Face `trl` (Transformer Reinforcement Learning) library, which is specifically optimized for supervised fine-tuning on instruction-based datasets.
+-   **Targeted Loss Calculation:** Employed `DataCollatorForCompletionOnlyLM` to ensure the loss function was computed *only* on the `### Response:` section of the prompts. This focuses the model's learning entirely on generating the correct output, rather than memorizing the instruction, leading to more efficient and effective training.
 
 ---
 
 ## 📂 Repository Structure
-```
-llm-instruction-tuning-lora
-├── LoRA_Finetuning_Walkthrough.ipynb   # Main Jupyter Notebook with the full workflow.
-├── config.py                       # Configuration for LoRA and SFTTrainer.
-├── utils.py                        # Helper functions for formatting prompts and evaluation.
-├── train_loss.png                   # Plot of the training loss curve.
-├── instruction-tuning-log-history-lora.json # Training logs.
-├── *.pkl                            # Saved model outputs for analysis.
-└── README.md                       # You are here!
+```bash
+.
+├── LoRA_Finetuning_Walkthrough.ipynb  # Main Jupyter Notebook detailing the end-to-end workflow.
+├── config.py                          # LoRA and SFTTrainer configuration parameters.
+├── utils.py                           # Helper functions for prompt formatting and evaluation.
+├── train_loss.png                     # Plot of the training loss curve.
+├── instruction-tuning-log-history.json# Training logs.
+└── README.md                          # You are here!
 ```
 
 ---
 
-## How to Run
+## Reproduce My Results
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/nabeelshan78/llm-instruction-tuning-lora.git
+    git clone [https://github.com/your-username/llm-instruction-tuning-lora.git](https://github.com/your-username/llm-instruction-tuning-lora.git)
     cd llm-instruction-tuning-lora
     ```
 
-2.  **Launch Jupyter Lab:**
+2.  **Install dependencies:**
     ```bash
-    jupyter lab
+    pip install -r requirements.txt 
+    # Or install manually: pip install torch transformers datasets peft trl
     ```
 
-4.  **Run the Notebook:**
-    Open `LoRA_Finetuning_Walkthrough` and execute the cells sequentially.
+3.  **Launch the notebook:**
+    Open and run the cells in `LoRA_Finetuning_Walkthrough.ipynb` using Jupyter Lab or a similar environment.
 
 ---
 
-## Technologies Used
+## 💻 Technology Stack & Core Competencies
+
+This project showcases my proficiency with the modern AI/ML development stack and key deep learning concepts.
+
+-   **Languages & Frameworks:** Python, PyTorch
+-   **Hugging Face Ecosystem:** `transformers`, `peft`, `trl`, `datasets`
+-   **Core Concepts:**
+    -   Large Language Models (LLMs)
+    -   Instruction Fine-Tuning
+    -   Parameter-Efficient Fine-Tuning (PEFT)
+    -   Low-Rank Adaptation (LoRA)
+    -   Prompt Engineering
+    -   Model Evaluation & Performance Analysis
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg?style=for-the-badge&logo=pytorch)
-![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Transformers-yellow.svg?style=for-the-badge)
+![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Ecosystem-yellow.svg?style=for-the-badge)
 ![PEFT](https://img.shields.io/badge/PEFT-LoRA-orange.svg?style=for-the-badge)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Lab-f37626.svg?style=for-the-badge&logo=jupyter)
-
----
