@@ -61,8 +61,8 @@ My approach involved a systematic workflow, from data strategy to model training
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/llm-instruction-tuning-lora.git](https://github.com/your-username/llm-instruction-tuning-lora.git)
-    cd llm-instruction-tuning-lora
+    git clone https://github.com/nabeelshan78/LLM-Code-Specialization-with-LoRA.git
+    cd LLM-Code-Specialization-with-LoRA
     ```
 
 2.  **Install dependencies:**
