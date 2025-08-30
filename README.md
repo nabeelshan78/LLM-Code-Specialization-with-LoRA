@@ -46,13 +46,16 @@ My approach involved a systematic workflow, from data strategy to model training
 
 ## 📂 Repository Structure
 ```bash
-.
-├── LoRA_Finetuning_Walkthrough.ipynb  # Main Jupyter Notebook detailing the end-to-end workflow.
-├── config.py                          # LoRA and SFTTrainer configuration parameters.
-├── utils.py                           # Helper functions for prompt formatting and evaluation.
-├── train_loss.png                     # Plot of the training loss curve.
-├── instruction-tuning-log-history.json# Training logs.
-└── README.md                          # You are here!
+LLM-Code-Specialization-with-LoRA/
+├── LoRA_Finetuning_Walkthrough.ipynb        # Main Jupyter Notebook: full workflow of LoRA fine-tuning.
+├── config.py                                # LoRA + SFTTrainer configuration parameters.
+├── utils.py                                 # Helper functions for prompt formatting and evaluation.
+├── train_loss.png                           # Training loss curve visualization.
+├── instruction-tuning-log-history-lora.json # Training logs for reproducibility.
+├── generated_outputs_base.pkl               # Saved outputs from the base model (pre-tuning).
+├── instruction-tuning-generated-outputs-base.pkl  # Evaluation results: base model.
+├── instruction-tuning-generated-outputs-lora.pkl  # Evaluation results: LoRA fine-tuned model.
+└── README.md                                # Project documentation (you are here!).
 ```
 
 ---
