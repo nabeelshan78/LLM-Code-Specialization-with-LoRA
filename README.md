@@ -8,19 +8,45 @@ The key achievement was leveraging **Low-Rank Adaptation (LoRA)**, a Parameter-E
 
 ---
 
-## 🚀 Key Result: Before vs. After LoRA Fine-Tuning
+## 📊 Quantitative Evaluation & Results
 
-The impact of instruction fine-tuning is best shown by comparing the model's performance on the same prompt before and after the LoRA process. The transformation from an incoherent text generator to a functional code generator is stark.
+To rigorously measure the impact of LoRA fine-tuning, I conducted a systematic evaluation on a custom benchmark of 50 diverse instructions spanning code generation, algorithmic logic, and conceptual questions.
 
-| | Before Fine-Tuning (Base `opt-350m`) | After LoRA Fine-Tuning (Specialized Model) |
-| :--- | :--- | :--- |
-| **Instruction** | `Create a javascript class that takes in two arguments and prints them out when called.` | `Create a javascript class that takes in two arguments and prints them out when called.` |
-| **Model Output** | `Once you have a response, write it down. Write it down. Write it down... ### Instructions: Add a JavaScript object to the end of the class.` | `class PrintNumber{ constructor(num1, num2){ this.num1 = num1; this.num2 = num2; } printNumber(){ console.log(\`${this.num1}, ${this.num2}\`); } }` |
-| **Assessment** | ❌ **Failure:** The base model completely fails to understand the instruction, generating repetitive, nonsensical text. | ✅ **Success:** The fine-tuned model correctly interprets the instruction and generates a perfectly valid and functional JavaScript class. |
+### Evaluation Summary
 
-### Training Performance
+The analysis reveals a definitive phase transition in the model's capabilities. The fine-tuned model moves from a state of complete task failure to successfully handling a significant portion of the prompts, proving the profound effectiveness of the LoRA specialization.
 
-The model demonstrated successful learning, as evidenced by the consistently decreasing training loss curve. This indicates effective convergence on the task of following coding instructions.
+| Model                      | Successful Responses | Total Samples | Task Success Rate |
+| :------------------------- | :------------------: | :-----------: | :---------------: |
+| **Base `opt-350m` Model** |          0           |      50       |      **0%** |
+| **Fine-Tuned LoRA Model** |          22          |      50       |     **44%** |
+
+This **44% success rate** represents a dramatic improvement from a **0% baseline**, achieved by fine-tuning **less than 1%** of the model's parameters.
+
+<details>
+<summary><strong>Click to see the Evaluation Methodology</strong></summary>
+
+-   **Benchmark**: A custom test set of 50 diverse instructions was created to evaluate the model's performance on a wide range of tasks.
+-   **Success Metric**: A binary "Task Success Rate" was used. An output was graded as a "Success" only if it was a valid, functional, and logically correct response to the specific instruction.
+-   **Reproducibility**: The full evaluation process, including all 50 instructions, model outputs, and the grading criteria, can be reviewed in the [`evaluation.ipynb`](evaluation.ipynb) notebook and [`results.txt`](results.txt) file.
+
+</details>
+
+### Qualitative Showcase: From Gibberish to Functional Code
+
+The quantitative improvement is best illustrated by a direct comparison. The base model fails completely, whereas the LoRA-tuned model generates a perfect, functional response.
+
+|                   | Before Fine-Tuning (Base `opt-350m`)                                                              | After LoRA Fine-Tuning (Specialized Model)                                                                                                   |
+| :---------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Instruction**   | `Create a javascript class that takes in two arguments and prints them out when called.`            | `Create a javascript class that takes in two arguments and prints them out when called.`                                                     |
+| **Model Output**  | `Once you have a response, write it down. Write it down. Write it down...`                         | class PrintNumber { constructor(num1, num2) {  this.num1 = num1; this.num2 = num2; } printNumber() { console.log(`${this.num1}, ${this.num2}`); } } |
+| **Assessment**    | ❌ **Failure:** Generates repetitive, nonsensical text.                                           | ✅ **Success:** Correctly interprets the instruction and generates valid JavaScript.        |
+
+
+
+### Training Convergence
+
+The model demonstrated successful learning during fine-tuning, as evidenced by the consistently decreasing training loss curve. This indicates effective convergence on the instruction-following task.
 
 ![Training Loss Curve](train_loss.png)
 
