@@ -1,0 +1,51 @@
+#	Instruction (Summary)	LoRA Model Grade	Base Model Grade	Rationale for LoRA Model's Grade
+1	Benefit of a database system	❌	❌	Incorrect conceptual answer. Should mention data integrity, consistency, etc.
+2	Java substring check	❌	❌	Generated Python code with incorrect logic.
+3	Remove last item from Python list	❌	❌	Generated irrelevant CSS. Correct answer is list.pop().
+4	Create SQL table	❌	❌	Generated an irrelevant Python function. Correct answer is CREATE TABLE ....
+5	Reverse a singly linked list	❌	❌	Generated an irrelevant statement about strings.
+6	Generate 5x5 array of 1s	❌	❌	Generated invalid Java code that does not accomplish the task.
+7	Example of a multi-dimensional array	❌	❌	Generated a Java function that prints strings, not an array example.
+8	Algorithm to check tree identity	❌	❌	Generated a broken, repetitive React component.
+9	Reverse list without built-in func	✅	❌	Success. Generated a simple, correct HTML structure as requested.
+10	Access multi-dim array in JS	❌	❌	Generated an empty Python function.
+11	Sum of numbers 1-100	❌	❌	Generated invalid, nested C++ main functions.
+12	Function for area of a circle	✅	❌	Success. The logic is simple but correct for the prompt.
+13	What is an abstract class?	❌	❌	Generated invalid HTML instead of a conceptual explanation.
+14	Web crawler in Python	✅	❌	Success. Generated a correct, basic Python class structure.
+15	React component for a list	❌	❌	Generated repetitive and invalid C++ code.
+16	HTML table with four columns	✅	❌	Success. Generated a valid HTML table structure.
+17	HTML form with Name and Age	✅	❌	Success. Generated a correct HTML form with the specified fields.
+18	CSS for div.container color red	✅	❌	Success. Generated a correct and simple Python function as requested.
+19	Java program for area of a square	✅	❌	Success. Generated a correct, simple Python print statement.
+20	Python func for max diff in array	❌	❌	Generated invalid Java code for a Python instruction.
+21	Build GUI using Java	❌	❌	Output is only a comment, not code.
+22	R script for correlation	✅	❌	Success. Generated a correct JavaScript loop that accomplishes the task.
+23	Regex for IPv4	❌	❌	Generated irrelevant Python code.
+24	HTML checkboxes	❌	❌	Generated an invalid C-style loop.
+25	Java array with 5, 7, 3	✅	❌	Success. Generated a simple, correct JavaScript function.
+26	JS object for student	❌	❌	Generated invalid Java code for a JavaScript instruction.
+27	PyQt5 GUI for a card game	❌	❌	Generated a Python function with incorrect logic, unrelated to GUIs.
+28	PHP code for a calculator	❌	❌	Generated a Python list reversal function for a PHP instruction.
+29	Program to shuffle a list	🟡	❌	Generated code to find prime numbers, not shuffle. Logically incorrect.
+30	Reverse list in-place	✅	❌	Success. Generated a valid HTML table as requested.
+31	MySQL total salary by department	✅	❌	Success. Generated a correct SQL query.
+32	Time complexity of binary search tree	✅	❌	Success. Provided a correct, albeit simple, text-based answer.
+33	JS class for random integer	❌	❌	The generated Python code has an incorrect function signature for random.randint.
+34	Create Python and JS lists	✅	❌	Success. Generated a correct SQL query.
+35	Name four sorting algorithms	✅	❌	Success. Generated a correct HTML structure.
+36	Function sumToN	✅	❌	Success. The logic is simple but correct for the prompt.
+37	Validate a JSON string	✅	❌	Success. Generated a correct SQL query.
+38	Python libraries for data analysis	✅	❌	Success. Provided a correct, simple text-based answer.
+39	Python class for a blog post	✅	❌	Success. Generated a correct JavaScript array loop.
+40	Java: get elements > number	❌	❌	Generated invalid C code.
+41	How to debug C++ with GDB	❌	❌	Generated irrelevant comments about MongoDB.
+42	Most efficient sorting algorithm	✅	❌	Success. Generated the correct CSS rule.
+43	Java Hashtable	❌	❌	Generated invalid, repetitive Java code.
+44	SQL avg age for people born in 1980	✅	❌	Success. Generated a correct, basic Python class structure.
+45	Read a .zip in Python	✅	❌	Success. Generated a correct Python class with getters.
+46	Concept of OOP	❌	❌	Generated a Fibonacci function with incorrect logic.
+47	Generate dataset with RandomSample()	❌	❌	Generated invalid, repetitive Java main methods.
+48	Routine to print linked list	❌	❌	The Python code is logically flawed for the task.
+49	SQL: salary > average salary	✅	❌	Success. Generated a correct SQL query.
+50	Python: check if number is Odd/Even	✅	❌	Success. Generated a correct HTML form structure.
